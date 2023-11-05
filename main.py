@@ -7,32 +7,110 @@ app.setStyleSheet("""
         background-color:#000000 ;
         color : #ffffff;
         font-size: 15px;
+        min-width: 150px;
+        min-height: 300px;
+        margin : 10 px;
     }
 
     QPushButton {
-        background-color: #ff0000;
+        background-color: #cc0000;
         color : #ffffff;
         border-radius: 5px ;
-        border-color: #3232ff;
-        border-style: hidden;
-        border-width: 5px;
-        min-height: 20px;
+        border-color: #ff0000;
+        border-style: solid;
+        min-width: 100px;
+        min-height: 50px;
         font-size: 15px;
         font-family: none;
 
     }
-
-
-    QListWidget {
-        background-color: #141414 ;
-        color : #a0a0a0;
+    
+    QPushButton:hover {
+        background-color: #ff2200;
+        color : #ffffff;
+        border-radius: 10px ;
+        border-color: #111111;
+        border-style: none;
+        border-width: 10px;
+        min-height: 50px;
+        min-width: 100px;
         font-size: 15px;
+        font-family: none;
+
+    }
+    
+    QPushButton#a {
+        background-color: #00ff00;
+        color : #ffffff;
+        border-radius: 5px ;
+        border-color: #00ff00;
+        border-style: solid;
+        min-width: 100px;
+        min-height: 50px;
+        font-size: 15px;
+        font-family: none;
+
+    }
+    
+    QPushButton#a:hover {
+        background-color: #00ff55;
+        color : #000000;
+        border-radius: 10px ;
+        border-color: #00ff55;
+        border-style: none;
+        border-width: 10px;
+        min-height: 50px;
+        min-width: 100px;
+        font-size: 15px;
+        font-family: none;
+
+    }
+    
+    
+    
+    QListWidget {
+        background-color: #111111 ;
+        color : #ffffff;
+        font-size: 15px;
+        border-color: #000000;
+        border-style: none;
+        border-width: 1px;
+        border-radius: 5px ;
+    }
+    
+    QListWidget:hover {
+        background-color: #151515 ;
+        color : #ffffff;
+        font-size: 15px;
+        border-radius: 5px ;
+        border-color: #ff0000;
+        border-style: solid;
+    }
+    
+     
+    QLabel{
+        background-color: #000000 ;
+        color : #ffffff;
+        font-size: 15px;
+        border-radius: 5px ;
+        border-color: #ff0000;
+        border-style: solid;
+    }
+    
+    QLabel:hover{
+        background-color: #000000 ;
+        color : #ffffff;
+        font-size: 15px;
+        border-radius: 5px ;
+        border-color: #ff0000;
+        border-style: solid;
+        border-width: 3px;
     }
 
 """)
 
 window = QWidget()
-window.resize(400 , 300)
+window.resize(800 , 600)
 
 mainline = QHBoxLayout()
 sline1 = QVBoxLayout()
@@ -59,6 +137,7 @@ butonsline.addWidget(buton6)
 mainline.addLayout(sline1)
 mainline.addLayout(sline2)
 
+buton1.setObjectName('a')
 
 window.setLayout(mainline)
 window.show()
