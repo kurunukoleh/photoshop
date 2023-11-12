@@ -1,4 +1,24 @@
+from PIL import Image
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import *
+import os
+
+
+def pil2pixmap(im):
+    if im.mode == "RGB":
+        r, g, b = im.split()
+        im = Image.merge("RGB", (b, g, r))
+    elif im.mode == "RGBA":
+        r, g, b, a = im.split()
+        im = Image.merge("RGBA", (b, g, r, a))
+    elif im.mode == "L":
+        im = im.convert("RGBA")
+    im2 = im.convert("RGBA")
+    data = im2.tobytes("raw", "RGBA")
+    qim = QImage(data, im.size[0], im.size[1], QImage.Format_ARGB32)
+    pixmap = QPixmap.fromImage(qim)
+    return pixmap
 
 app = QApplication([])
 
@@ -24,7 +44,7 @@ app.setStyleSheet("""
         font-family: none;
 
     }
-    
+
     QPushButton:hover {
         background-color: #ff2200;
         color : #ffffff;
@@ -38,7 +58,7 @@ app.setStyleSheet("""
         font-family: none;
 
     }
-    
+
     QPushButton#a {
         background-color: #00ff00;
         color : #ffffff;
@@ -51,7 +71,7 @@ app.setStyleSheet("""
         font-family: none;
 
     }
-    
+
     QPushButton#a:hover {
         background-color: #00ff55;
         color : #000000;
@@ -65,9 +85,9 @@ app.setStyleSheet("""
         font-family: none;
 
     }
-    
-    
-    
+
+
+
     QListWidget {
         background-color: #111111 ;
         color : #ffffff;
@@ -77,7 +97,7 @@ app.setStyleSheet("""
         border-width: 1px;
         border-radius: 5px ;
     }
-    
+
     QListWidget:hover {
         background-color: #151515 ;
         color : #ffffff;
@@ -86,8 +106,8 @@ app.setStyleSheet("""
         border-color: #ff0000;
         border-style: solid;
     }
-    
-     
+
+
     QLabel{
         background-color: #000000 ;
         color : #ffffff;
@@ -96,7 +116,7 @@ app.setStyleSheet("""
         border-color: #ff0000;
         border-style: solid;
     }
-    
+
     QLabel:hover{
         background-color: #000000 ;
         color : #ffffff;
@@ -110,7 +130,7 @@ app.setStyleSheet("""
 """)
 
 window = QWidget()
-window.resize(800 , 600)
+window.resize(800, 600)
 
 mainline = QHBoxLayout()
 sline1 = QVBoxLayout()
@@ -139,6 +159,47 @@ mainline.addLayout(sline2)
 
 buton1.setObjectName('a')
 
+class workphoto:
+    def __init__(self):
+        self.image = None
+        self.folder = None
+        self.filename = None
+
+    def load(self):
+        imagePath = os.path.join(self.folder , self.filename)
+        self.image = Image.open(imagePath)
+
+    def showImage(self):
+        pixel = pil2pixmap(self.image)
+        pixel = pixel.scaled(800 , 600  , Qt.KeepAspectRatio)
+        picture.setPixmap(pixel)
+
+    def rotateleft(self):
+        self.image = self.image.transpose(Image.ROTATE_90)
+        self.showImage()
+
+    def rotateright(self):
+        self.image = self.image.transpose(Image.ROTATE_270)
+        self.showImage()
+
+photo = workphoto()
+buton2.clicked.connect(photo.rotateleft)
+buton3.clicked.connect(photo.rotateright)
+
+def opfold():
+    photo.folder  = QFileDialog.getExistingDirectory()
+    files = os.listdir(photo.folder)
+    pole.clear()
+    pole.addItems(files)
+
+def shovchooseimage():
+    photo.filename = pole.currentItem().text()
+    photo.load()
+    photo.showImage()
+
+
+pole.currentRowChanged.connect(shovchooseimage)
+buton1.clicked.connect(opfold)
 window.setLayout(mainline)
 window.show()
 app.exec()
