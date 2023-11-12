@@ -1,4 +1,4 @@
-from PIL import Image
+from PIL import Image, ImageEnhance, ImageFilter
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import *
@@ -27,8 +27,8 @@ app.setStyleSheet("""
         background-color:#000000 ;
         color : #ffffff;
         font-size: 15px;
-        min-width: 150px;
-        min-height: 300px;
+        min-width: 1px;
+        min-height : 1px;
         margin : 10 px;
     }
 
@@ -135,25 +135,35 @@ window.resize(800, 600)
 mainline = QHBoxLayout()
 sline1 = QVBoxLayout()
 sline2 = QVBoxLayout()
-butonsline = QHBoxLayout()
+butonsline1 = QHBoxLayout()
+butonsline2 = QHBoxLayout()
 buton1 = QPushButton('папка')
 buton2 = QPushButton('вліво')
 buton3 = QPushButton('вправо')
 buton4 = QPushButton('дзеркало')
 buton5 = QPushButton('різкість')
 buton6 = QPushButton('Ч/Б')
+buton7 = QPushButton('яскравіше')
+buton8 = QPushButton('контрасніше')
+buton9 = QPushButton('контури')
+
 pole = QListWidget()
+
 picture = QLabel('ніга буллшит')
 
 sline1.addWidget(buton1)
 sline1.addWidget(pole)
 sline2.addWidget(picture)
-sline2.addLayout(butonsline)
-butonsline.addWidget(buton2)
-butonsline.addWidget(buton3)
-butonsline.addWidget(buton4)
-butonsline.addWidget(buton5)
-butonsline.addWidget(buton6)
+sline2.addLayout(butonsline1)
+sline2.addLayout(butonsline2)
+butonsline1.addWidget(buton2)
+butonsline1.addWidget(buton3)
+butonsline1.addWidget(buton4)
+butonsline1.addWidget(buton5)
+butonsline2.addWidget(buton6)
+butonsline2.addWidget(buton7)
+butonsline2.addWidget(buton8)
+butonsline2.addWidget(buton9)
 mainline.addLayout(sline1)
 mainline.addLayout(sline2)
 
@@ -182,9 +192,41 @@ class workphoto:
         self.image = self.image.transpose(Image.ROTATE_270)
         self.showImage()
 
+    def mirrow(self):
+        self.image = self.image.transpose(Image.FLIP_LEFT_RIGHT)
+        self.showImage()
+
+    def riskist(self):
+        self.image = self.image.filter(ImageFilter.BLUR)
+        self.showImage()
+
+    def blackwhite(self):
+        self.image = self.image.convert("L")
+        self.showImage()
+
+    def morelight(self):
+        self.image = ImageEnhance.Brightness(self.image).enhance(1.5)
+        self.showImage()
+
+    def konrast(self):
+        self.image = ImageEnhance.Contrast(self.image).enhance(1.5)
+        self.showImage()
+
+    def bariers(self):
+        self.image = self.image.filter(ImageFilter.CONTOUR)
+        self.showImage()
+
 photo = workphoto()
 buton2.clicked.connect(photo.rotateleft)
 buton3.clicked.connect(photo.rotateright)
+buton4.clicked.connect(photo.mirrow)
+buton5.clicked.connect(photo.riskist)
+buton6.clicked.connect(photo.blackwhite)
+buton7.clicked.connect(photo.morelight)
+buton8.clicked.connect(photo.konrast)
+buton9.clicked.connect(photo.bariers)
+
+
 
 def opfold():
     photo.folder  = QFileDialog.getExistingDirectory()
