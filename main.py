@@ -234,8 +234,9 @@ class workphoto:
         text = result['text']
         vx = int(result['x'])
         vy = int(result['y'])
+        size = int(result['size'])
         draw = ImageDraw.Draw(self.image)
-        font = ImageFont.truetype('Ghastly Panic Cyrillic/GhastlyPanicCyr.otf', 100)
+        font = ImageFont.truetype('Ghastly Panic Cyrillic/GhastlyPanicCyr.otf', size)
         draw.text((vx, vy), text, font=font, fill="red")
         self.showImage()
 
@@ -244,8 +245,9 @@ class workphoto:
         text = result['text']
         vx = int(result['x'])
         vy = int(result['y'])
+        size = int(result['size'])
         draw = ImageDraw.Draw(self.image)
-        font = ImageFont.truetype('Ghastly Panic Cyrillic/GhastlyPanicCyr.otf', 100)
+        font = ImageFont.truetype('DRKrapkaSquare-ExtraBold/DRKrapkaSquare-ExtraBold.otf', size)
         draw.text((vx, vy), text, font=font, fill="blue")
         self.showImage()
 
@@ -254,8 +256,9 @@ class workphoto:
         text = result['text']
         vx = int(result['x'])
         vy = int(result['y'])
+        size = int(result['size'])
         draw = ImageDraw.Draw(self.image)
-        font = ImageFont.truetype('Ghastly Panic Cyrillic/GhastlyPanicCyr.otf', 100)
+        font = ImageFont.truetype('shrift/Cream_and_sugar.ttf', size)
         draw.text((vx, vy), text, font=font, fill="yellow")
         self.showImage()
 
@@ -264,8 +267,9 @@ class workphoto:
         text = result['text']
         vx = int(result['x'])
         vy = int(result['y'])
+        size = int(result['size'])
         draw = ImageDraw.Draw(self.image)
-        font = ImageFont.truetype('Ghastly Panic Cyrillic/GhastlyPanicCyr.otf', 100)
+        font = ImageFont.truetype('shrift2/AA-BebasNeue.ttf', size)
         draw.text((vx, vy), text, font=font, fill="green")
         self.showImage()
 
