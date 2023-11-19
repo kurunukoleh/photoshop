@@ -1,8 +1,11 @@
 from PIL import Image, ImageEnhance, ImageFilter
+from PIL import ImageDraw
+from PIL import ImageFont
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import *
 import os
+from texteditor import *
 
 
 def pil2pixmap(im):
@@ -137,6 +140,7 @@ sline1 = QVBoxLayout()
 sline2 = QVBoxLayout()
 butonsline1 = QHBoxLayout()
 butonsline2 = QHBoxLayout()
+butonsline3 = QHBoxLayout()
 buton1 = QPushButton('папка')
 buton2 = QPushButton('вліво')
 buton3 = QPushButton('вправо')
@@ -146,6 +150,10 @@ buton6 = QPushButton('Ч/Б')
 buton7 = QPushButton('яскравіше')
 buton8 = QPushButton('контрасніше')
 buton9 = QPushButton('контури')
+buton10 = QPushButton('додати текст')
+buton11 = QPushButton('додати текст 2')
+buton12 = QPushButton('додати текст 3')
+buton13 = QPushButton('додати текст 4')
 
 pole = QListWidget()
 
@@ -156,6 +164,7 @@ sline1.addWidget(pole)
 sline2.addWidget(picture)
 sline2.addLayout(butonsline1)
 sline2.addLayout(butonsline2)
+sline2.addLayout(butonsline3)
 butonsline1.addWidget(buton2)
 butonsline1.addWidget(buton3)
 butonsline1.addWidget(buton4)
@@ -164,6 +173,10 @@ butonsline2.addWidget(buton6)
 butonsline2.addWidget(buton7)
 butonsline2.addWidget(buton8)
 butonsline2.addWidget(buton9)
+butonsline3.addWidget(buton10)
+butonsline3.addWidget(buton11)
+butonsline3.addWidget(buton12)
+butonsline3.addWidget(buton13)
 mainline.addLayout(sline1)
 mainline.addLayout(sline2)
 
@@ -216,6 +229,47 @@ class workphoto:
         self.image = self.image.filter(ImageFilter.CONTOUR)
         self.showImage()
 
+    def addtext1(self):
+        result = texteditor()
+        text = result['text']
+        vx = int(result['x'])
+        vy = int(result['y'])
+        draw = ImageDraw.Draw(self.image)
+        font = ImageFont.truetype('Ghastly Panic Cyrillic/GhastlyPanicCyr.otf', 100)
+        draw.text((vx, vy), text, font=font, fill="red")
+        self.showImage()
+
+    def addtext2(self):
+        result = texteditor()
+        text = result['text']
+        vx = int(result['x'])
+        vy = int(result['y'])
+        draw = ImageDraw.Draw(self.image)
+        font = ImageFont.truetype('Ghastly Panic Cyrillic/GhastlyPanicCyr.otf', 100)
+        draw.text((vx, vy), text, font=font, fill="blue")
+        self.showImage()
+
+    def addtext3(self):
+        result = texteditor()
+        text = result['text']
+        vx = int(result['x'])
+        vy = int(result['y'])
+        draw = ImageDraw.Draw(self.image)
+        font = ImageFont.truetype('Ghastly Panic Cyrillic/GhastlyPanicCyr.otf', 100)
+        draw.text((vx, vy), text, font=font, fill="yellow")
+        self.showImage()
+
+    def addtext4(self):
+        result = texteditor()
+        text = result['text']
+        vx = int(result['x'])
+        vy = int(result['y'])
+        draw = ImageDraw.Draw(self.image)
+        font = ImageFont.truetype('Ghastly Panic Cyrillic/GhastlyPanicCyr.otf', 100)
+        draw.text((vx, vy), text, font=font, fill="green")
+        self.showImage()
+
+
 photo = workphoto()
 buton2.clicked.connect(photo.rotateleft)
 buton3.clicked.connect(photo.rotateright)
@@ -225,6 +279,10 @@ buton6.clicked.connect(photo.blackwhite)
 buton7.clicked.connect(photo.morelight)
 buton8.clicked.connect(photo.konrast)
 buton9.clicked.connect(photo.bariers)
+buton10.clicked.connect(photo.addtext1)
+buton11.clicked.connect(photo.addtext2)
+buton12.clicked.connect(photo.addtext3)
+buton13.clicked.connect(photo.addtext4)
 
 
 
